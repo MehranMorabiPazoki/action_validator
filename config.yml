@@ -1,0 +1,33 @@
+# === FILE: config.yaml ===
+cameras:
+  camera1:
+    anchors:
+      - id: "cam1_zone1"
+        name: "Entrance Left"
+        box: [219, 237, 419, 637 ] # x1, y1, x2, y2
+
+
+  camera2:
+    anchors:
+      - id: "cam2_zone1"
+        name: "Entrance Left"
+        box: [104, 316, 314, 638] # x1, y1, x2, y2
+
+  camera3:
+    anchors:
+      - id: "cam3_zone1"
+        name: "Entrance Left"
+        box: [220, 321, 413, 638] # x1, y1, x2, y2
+
+  camera4: 
+    anchors:
+      - id: "cam4_zone1"
+        name: "Entrance Left"
+        box: [41, 304, 223, 639] # x1, y1, x2, y2
+
+
+camera_sockets:
+  camera1: camera1_socket
+  camera2: camera2_socket 
+  camera3: camera3_socket
+  camera4: camera4_socket
