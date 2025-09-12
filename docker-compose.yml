@@ -1,7 +1,7 @@
 services:
   smart_frame_selector:
-    image: identification:0.1.0
-    container_name: identification
+    image: action_validator:0.1.0
+    container_name: action_validator
     command: ["python", "main.py"]
     restart: always
     deploy:
