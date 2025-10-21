@@ -17,9 +17,12 @@ services:
       - frame_streamer_server_ip=frame_streamer
       - YOLO_CONFIG_DIR=/app/models/yolo
       - TZ=Asia/Tehran
+    expose:
+      - 5556
     volumes:
       - .:/app
       - zmq_socket_ipc:/tmp:ro
+      - shared_data:/shared/data
     networks:
       - ai_vision
 
@@ -27,7 +30,9 @@ volumes:
   zmq_socket_ipc:
     name: zmq_socket_ipc
     external: true
-
+  shared_data:
+    name: shared_data
+    external: true
 
 networks:
   ai_vision:
