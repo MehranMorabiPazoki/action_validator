@@ -4,7 +4,7 @@ import threading
 from managers import AnchorManager, GlobalStateManager, create_anchor_managers_from_config
 from listener import CameraListener, FingerprintListener,start_trigger_listener
 from coordinator import Coordinator
-
+from message import BackendSender
 """Configure the root logger."""
 logging.basicConfig(
     level=logging.INFO,
@@ -52,7 +52,8 @@ def main():
         t.start()
         camera_process_threads.append(t)
 
-
+    # Initialize BackendSender 
+    backend_sender = BackendSender(addr="tcp://0.0.0.0:5556")
     # Start coordinator
     logger.info("Starting Coordinator...")
     coordinator = Coordinator(camera_process_threads, state_manager)

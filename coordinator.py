@@ -11,11 +11,12 @@ class CoordinatorState(Enum):
     ACTIVE = 1
 
 class Coordinator(threading.Thread):
-    def __init__(self, camera_listeners, state_manager, poll_interval=0.05):
+    def __init__(self, camera_listeners,backend_sender, state_manager, poll_interval=0.05):
         super().__init__(daemon=True)
         self.camera_listeners = camera_listeners
         self.state_manager = state_manager
         self.poll_interval = poll_interval
+        self.backend_sender = backend_sender
         self._stop_event = threading.Event()
 
         # Buffers initialized when ACTIVE
@@ -78,6 +79,7 @@ class Coordinator(threading.Thread):
         try:
             # Pass dict {camera_id: clip_path_or_dir} to inference
             results = mmaction_inference(dict(self.cam_data),delete_videos=False)
+            self.backend_sender.send(results=results,sample_id=self.state_manager.get_id())
             logger.info(f"mmaction_inference  result → results= {results}, ")
         except Exception as e:
             logger.exception("Error running auth pipeline: %s", e)
