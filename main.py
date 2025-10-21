@@ -60,15 +60,22 @@ def main():
 
     # In real deployment, you'd run indefinitely or under supervision
     try:
-        while True:
-            pass
+        for t in camera_process_threads:
+            t.join()
+        coordinator.join()
+        trigger_thread.join()
+        
     except KeyboardInterrupt:
         logger.info("Shutting down...")
-
-    # Stop everything cleanly
-    coordinator.stop()
-    trigger_thread.stop()
-    logger.info("All services stopped successfully.")
+        # Stop everything cleanly
+        coordinator.stop()
+        trigger_thread.stop()
+        # join again to ensure clean exit
+        for t in camera_process_threads:
+            t.join()
+        coordinator.join()
+        trigger_thread.join()
+        logger.info("All services stopped successfully.")
 
 
 if __name__ == "__main__":
