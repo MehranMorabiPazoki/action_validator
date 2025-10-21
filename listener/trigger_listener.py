@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger("trigger listener")
 
 
-def start_trigger_listener(state_manager,trigger_addr):
+def start_trigger_listener(state_manager, anchor_managers,trigger_addr):
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
     socket.connect(trigger_addr)
@@ -32,11 +32,13 @@ def start_trigger_listener(state_manager,trigger_addr):
         # Check payload's structure and fields
         if topic == "detection.command" and msg.get("msg_type") == "command":
             command = msg.get("command")
+            uuid  = msg.get("msg_id")
+            timestamp = msg.get("timestamp")
             logger.info(f"Received command: {command}")
             if command == "ENTRY":
-                state_manager.activate()
+                state_manager.activate(uuid=uuid,timestamp=timestamp)
                 logger.info("StateManager activated.")
-            elif command == "EXIT":
+            elif command == "EXIT" or command == "RESET":
                 state_manager.deactivate()
                 logger.info("StateManager deactivated..")
         else:

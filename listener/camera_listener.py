@@ -39,7 +39,7 @@ class CameraListener(threading.Thread):
         self.poller.register(self.socket, zmq.POLLIN)
 
         self.output_queue = queue.Queue(maxsize=5) 
-
+        self.camera_id  = bind_addr.split("/")[-1]
         # Recording state
         self.video_writer = None
         self.video_path = None
@@ -73,13 +73,13 @@ class CameraListener(threading.Thread):
                 logger.info("Non-blocking receive failed.")
         return None, None, None
 
-    def _start_recording(self, width, height):
+    def _start_recording(self, width, height,base_dir):
         if self.recording:
             return
 
         ts = int(time.time())
         if self.mode == "video":
-            self.video_path = os.path.join(tempfile.gettempdir(), f"clip_{ts}.mp4")
+            self.video_path = os.path.join(base_dir, f"clip_{self.camera_id}_{ts}.mp4")
             fourcc = cv2.VideoWriter_fourcc(*"mp4v")
             self.video_writer = cv2.VideoWriter(self.video_path, fourcc, self.fps, (width, height))
         elif self.mode == "frames":
@@ -115,7 +115,7 @@ class CameraListener(threading.Thread):
 
                 if self.state_manager.is_active():
                     if not self.recording:
-                        self._start_recording(width, height)
+                        self._start_recording(width=width, height=height,base_dir=os.path.join("/shared/data",self.state_manager.get_id(),"action_validator"))
 
                     if self.mode == "video":
                         self.video_writer.write(frame)
