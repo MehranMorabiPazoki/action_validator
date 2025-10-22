@@ -76,7 +76,7 @@ class CameraListener(threading.Thread):
     def _start_recording(self, width, height,base_dir):
         if self.recording:
             return
-
+        os.makedirs(base_dir,exist_ok=True)
         ts = int(time.time())
         if self.mode == "video":
             self.video_path = os.path.join(base_dir, f"clip_{self.camera_id}_{ts}.mp4")

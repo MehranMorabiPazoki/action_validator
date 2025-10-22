@@ -56,7 +56,7 @@ def main():
     backend_sender = BackendSender(addr="tcp://0.0.0.0:5556")
     # Start coordinator
     logger.info("Starting Coordinator...")
-    coordinator = Coordinator(camera_process_threads, state_manager)
+    coordinator = Coordinator(camera_listeners = camera_process_threads,backend_sender=backend_sender, state_manager=state_manager)
     coordinator.start()
 
     # In real deployment, you'd run indefinitely or under supervision

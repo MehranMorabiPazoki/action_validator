@@ -35,14 +35,14 @@ val_pipeline = [
 pipeline = Compose(val_pipeline)
 
 
-mmaction_config_path = './models/mmaction/20250924_133942/vis_data/config.py'
+mmaction_config_path = './models/mmaction/config.py'
 mmaction_checkpoint_path = './models/mmaction/slowonly_r50_8xb16-u48-240e_ntu60-xsub-limb_20220815-af2f119a.pth' # can be a local path
 
 # Initialize once
 mmaction_model = init_recognizer(mmaction_config_path, mmaction_checkpoint_path, device=device)  # device can be 'cuda:0'
 
 
-with open(file='action.json',mode='r+') as file:
+with open(file='./action.json',mode='r+') as file:
     actions = json.load(file)
 
 def pad_pose_sequence(pose_results, max_person=5, num_joints=17):
@@ -78,7 +78,7 @@ def pad_pose_sequence(pose_results, max_person=5, num_joints=17):
     return keypoints, keypoints_visible
 
 def run_pose_inference(video_path):
-    video_reader = VideoReader()
+    video_reader = VideoReader(video_path)
     batch_size = 32
     batch_input = []
     batch_data_sample = []
