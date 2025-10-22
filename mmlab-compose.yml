@@ -1,0 +1,39 @@
+# Use an official miniconda base image
+FROM continuumio/miniconda3:latest
+
+# Set environment variables
+ENV CONDA_AUTO_UPDATE_CONDA=false
+ENV PATH=/opt/conda/envs/openmmlab/bin:$PATH
+
+# Create the conda environment and install Python
+RUN conda create --name openmmlab python=3.8 -y
+
+# Activate environment and install dependencies
+SHELL ["conda", "run", "-n", "openmmlab", "/bin/bash", "-c"]
+
+# Install PyTorch
+RUN conda install pytorch torchvision -c pytorch
+
+# Install essential build tools (for compiling MMCV if needed)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential ninja-build git wget curl libgl1 libglib2.0-0 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install OpenMIM and OpenMMLab packages
+RUN pip install -U openmim 
+RUN mim install mmengine 
+RUN mim install "mmcv==2.1.0"
+RUN mim install "mmdet==3.3.0" 
+RUN mim install "mmpose==1.1.0"
+
+RUN pip install mmaction2
+
+# Set the default environment
+ENV CONDA_DEFAULT_ENV=openmmlab
+ENV PATH=/opt/conda/envs/openmmlab/bin:$PATH
+
+# Set default shell to bash
+SHELL ["/bin/bash", "-c"]
+
+# Default command
+CMD ["bash"]
