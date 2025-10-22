@@ -17,8 +17,8 @@ logger = logging.getLogger("mmaction_inference")
 register_all_modules()
 
 
-mmpose_config_path = './work_dirs/slowonly_r50_8xb16_u48_240e_ntu60_xsub_limb_custom/yoloxpose_s_8xb32-300e_coco-640.py'
-mmpose_checkpoint_path = './work_dirs/slowonly_r50_8xb16_u48_240e_ntu60_xsub_limb_custom/yoloxpose_s_8xb32-300e_coco-640-56c79c1f_20230829.pth'
+mmpose_config_path = './models/pose/config.py'
+mmpose_checkpoint_path = './models/pose/yoloxpose_s_8xb32-300e_coco-640-56c79c1f_20230829.pth'
 
 device = "cuda:0"
 mmpose_model = init_model(mmpose_config_path, mmpose_checkpoint_path, device=device)
@@ -35,8 +35,8 @@ val_pipeline = [
 pipeline = Compose(val_pipeline)
 
 
-mmaction_config_path = './work_dirs/slowonly_r50_8xb16_u48_240e_ntu60_xsub_limb_custom/20250924_133942/vis_data/config.py'
-mmaction_checkpoint_path = './work_dirs/slowonly_r50_8xb16_u48_240e_ntu60_xsub_limb_custom/best_acc_top1_epoch_1.pth' # can be a local path
+mmaction_config_path = './models/mmaction/20250924_133942/vis_data/config.py'
+mmaction_checkpoint_path = './models/mmaction/slowonly_r50_8xb16-u48-240e_ntu60-xsub-limb_20220815-af2f119a.pth' # can be a local path
 
 # Initialize once
 mmaction_model = init_recognizer(mmaction_config_path, mmaction_checkpoint_path, device=device)  # device can be 'cuda:0'
