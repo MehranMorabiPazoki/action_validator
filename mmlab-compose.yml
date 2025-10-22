@@ -24,9 +24,9 @@ RUN pip install -U openmim
 RUN mim install mmengine 
 RUN mim install "mmcv==2.1.0"
 RUN mim install "mmdet==3.3.0" 
-RUN mim install "mmpose==1.1.0"
+RUN mim install "mmpose==1.3.2"
 
-RUN pip install mmaction2
+RUN git clone https://github.com/open-mmlab/mmaction2.git && cd mmaction2 && pip install -v -e .
 
 # Set the default environment
 ENV CONDA_DEFAULT_ENV=openmmlab
