@@ -4,26 +4,26 @@ cameras:
     anchors:
       - id: "cam1_zone1"
         name: "Entrance Left"
-        box: [219, 237, 419, 637 ] # x1, y1, x2, y2
+        box: [191, 229, 412, 626 ] # x1, y1, x2, y2
 
 
   camera2:
     anchors:
       - id: "cam2_zone1"
         name: "Entrance Left"
-        box: [104, 316, 314, 638] # x1, y1, x2, y2
+        box: [117, 247, 381, 637 ] # x1, y1, x2, y2 
 
   camera3:
     anchors:
       - id: "cam3_zone1"
         name: "Entrance Left"
-        box: [220, 321, 413, 638] # x1, y1, x2, y2
+        box: [91, 220, 323, 619] # x1, y1, x2, y2
 
   camera4: 
     anchors:
       - id: "cam4_zone1"
         name: "Entrance Left"
-        box: [41, 304, 223, 639] # x1, y1, x2, y2
+        box: [108, 245, 332, 636] # x1, y1, x2, y2
 
 
 camera_sockets:
