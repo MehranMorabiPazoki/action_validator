@@ -20,7 +20,7 @@ register_all_modules()
 mmpose_config_path = './models/pose/config.py'
 mmpose_checkpoint_path = './models/pose/yoloxpose_s_8xb32-300e_coco-640-56c79c1f_20230829.pth'
 
-device = "cuda:0"
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 mmpose_model = init_model(mmpose_config_path, mmpose_checkpoint_path, device=device)
 
 # Define your val pipeline
@@ -36,7 +36,7 @@ pipeline = Compose(val_pipeline)
 
 
 mmaction_config_path = './models/mmaction/config.py'
-mmaction_checkpoint_path = './models/mmaction/slowonly_r50_8xb16-u48-240e_ntu60-xsub-limb_20220815-af2f119a.pth' # can be a local path
+mmaction_checkpoint_path = './models/mmaction/action_recognition.pth' # can be a local path
 
 # Initialize once
 mmaction_model = init_recognizer(mmaction_config_path, mmaction_checkpoint_path, device=device)  # device can be 'cuda:0'

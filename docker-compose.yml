@@ -1,6 +1,6 @@
 services:
   action_validator:
-    image: action_validator:0.1.0
+    image: action_validator:1.0.0
     container_name: action_validator
     command: ["python", "main.py"]
     restart: always
@@ -20,7 +20,7 @@ services:
     expose:
       - 5556
     volumes:
-      - .:/app
+      # - .:/app
       - zmq_socket_ipc:/tmp:ro
       - shared_data:/shared/data
     networks:
