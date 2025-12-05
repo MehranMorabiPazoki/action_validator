@@ -600,22 +600,6 @@ class GlobalStateManager:
         """Get current sample ID (uuid_timestamp)"""
 ```
 
-### Anchor Manager API
-
-```python
-class AnchorManager:
-    def get_all_anchors() -> List[dict]:
-        """Get all anchors with current state"""
-    
-    def set_triggered(anchor_id: str) -> None:
-        """Mark anchor as triggered"""
-    
-    def is_triggered(anchor_id: str) -> bool:
-        """Check if anchor is triggered"""
-    
-    def reset_all() -> None:
-        """Reset all anchors to untriggered"""
-```
 
 ### Camera Listener API
 

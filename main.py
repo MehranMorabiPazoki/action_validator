@@ -1,8 +1,8 @@
 import logging
 import yaml
 import threading
-from managers import AnchorManager, GlobalStateManager, create_anchor_managers_from_config
-from listener import CameraListener, FingerprintListener,start_trigger_listener
+from managers import GlobalStateManager, create_anchor_managers_from_config
+from listener import CameraListener,start_trigger_listener
 from coordinator import Coordinator
 from message import BackendSender
 """Configure the root logger."""
